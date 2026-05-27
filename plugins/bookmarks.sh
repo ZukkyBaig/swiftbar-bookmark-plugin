@@ -2,8 +2,12 @@
 
 # <xbar.title>Bookmarks</xbar.title>
 # <xbar.version>v1.0</xbar.version>
-# <xbar.author>zukky</xbar.author>
-# <xbar.desc>Quick-access URL bookmarks in the menubar.</xbar.desc>
+# <xbar.author>Zukky Baig</xbar.author>
+# <xbar.author.github>ZukkyBaig</xbar.author.github>
+# <xbar.desc>Quick-access URL bookmarks in the menubar. Click to open, add via a prompt, remove from a submenu.</xbar.desc>
+# <xbar.image>https://raw.githubusercontent.com/ZukkyBaig/swiftbar-bookmark-plugin/main/assets/menubar-with-bookmark.png</xbar.image>
+# <xbar.dependencies>bash,osascript</xbar.dependencies>
+# <xbar.abouturl>https://github.com/ZukkyBaig/swiftbar-bookmark-plugin</xbar.abouturl>
 
 SCRIPT="$0"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -11,6 +15,7 @@ BOOKMARKS_FILE="$SCRIPT_DIR/../bookmarks.txt"
 
 [ -f "$BOOKMARKS_FILE" ] || touch "$BOOKMARKS_FILE"
 
+# Strip leading and trailing whitespace from a string.
 trim() {
     local s="$1"
     s="${s#"${s%%[![:space:]]*}"}"
@@ -20,6 +25,7 @@ trim() {
 
 case "$1" in
   add)
+    # Prompt the user for a name and URL via AppleScript, then append to the bookmarks file.
     result=$(osascript <<'EOF' 2>/dev/null
 try
   set theName to text returned of (display dialog "Bookmark name:" default answer "" with title "Add Bookmark")
@@ -46,6 +52,7 @@ EOF
     exit 0
     ;;
   remove)
+    # Delete the bookmark whose name matches the given argument.
     target="$2"
     if [ -n "$target" ]; then
       tmp="$(mktemp)"
@@ -63,6 +70,7 @@ EOF
     ;;
 esac
 
+# Render the menubar dropdown: bookmarks list, then add/remove/edit/refresh actions.
 echo ":bookmark:"
 echo "---"
 
