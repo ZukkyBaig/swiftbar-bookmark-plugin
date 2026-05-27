@@ -54,7 +54,7 @@ Click **Edit file...** to open the storage file in your default editor.
 
 ## Storage
 
-Bookmarks live in `bookmarks.txt` next to the plugins folder, one per line:
+Bookmarks live in `~/.xbar-bookmarks.txt`, one per line:
 
 ```
 Netflix | https://www.netflix.com/

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # <xbar.title>Bookmarks</xbar.title>
 # <xbar.version>v1.0</xbar.version>
@@ -10,8 +10,7 @@
 # <xbar.abouturl>https://github.com/ZukkyBaig/swiftbar-bookmark-plugin</xbar.abouturl>
 
 SCRIPT="$0"
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BOOKMARKS_FILE="$SCRIPT_DIR/../bookmarks.txt"
+BOOKMARKS_FILE="$HOME/.xbar-bookmarks.txt"
 
 [ -f "$BOOKMARKS_FILE" ] || touch "$BOOKMARKS_FILE"
 
